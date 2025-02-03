@@ -1,0 +1,44 @@
+@page "/login"
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject ClienteService ClienteService
+@inject NavigationManager Navigation
+
+<h3>Inicio de Sesión</h3>
+
+<EditForm Model="@loginModel" OnValidSubmit="IniciarSesion">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Email:</label>
+        <InputText @bind-Value="loginModel.Email" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <InputText @bind-Value="loginModel.Password" type="password" />
+    </div>
+    <button type="submit">Iniciar Sesión</button>
+</EditForm>
+
+@code {
+    private LoginModel loginModel = new LoginModel
+    {
+        Email = string.Empty,
+        Password = string.Empty
+    };
+
+    private void IniciarSesion()
+    {
+        var cliente = ClienteService.ValidarUsuario(loginModel.Email, loginModel.Password);
+        if (cliente != null)
+        {
+            // Redirigir a la gestión de citas
+            Navigation.NavigateTo("/gestion-citas");
+        }
+        else
+        {
+            // Mostrar un mensaje de error
+        }
+    }
+}

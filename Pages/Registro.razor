@@ -1,0 +1,35 @@
+@page "/registro"
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject ClienteService ClienteService
+
+<h3>Registro de Cliente</h3>
+
+<EditForm Model="@cliente" OnValidSubmit="RegistrarCliente">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Nombre:</label>
+        <InputText @bind-Value="cliente.Nombre" />
+    </div>
+    <div>
+        <label>Email:</label>
+        <InputText @bind-Value="cliente.Email" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <InputText @bind-Value="cliente.Password" type="password" />
+    </div>
+    <button type="submit">Registrar</button>
+</EditForm>
+
+@code {
+    private Cliente cliente = new Cliente();
+
+    private void RegistrarCliente()
+    {
+        ClienteService.RegistrarCliente(cliente);
+        // Redirigir o mostrar un mensaje de éxito
+    }
+}

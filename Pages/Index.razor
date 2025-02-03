@@ -1,0 +1,51 @@
+﻿@page "/"
+@using BlazorApp.Models
+@inject ICitaService CitaService
+
+<h3>Crear una Cita</h3>
+
+<EditForm Model="@cita" OnValidSubmit="GuardarCita">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Título:</label>
+        <InputText @bind-Value="cita.Titulo" />
+    </div>
+    <div>
+        <label>Fecha:</label>
+        <InputDate @bind-Value="cita.Fecha" />
+    </div>
+    <div>
+        <label>Cliente ID:</label>
+        <InputNumber @bind-Value="cita.ClienteId" />
+    </div>
+    <div>
+        <label>Barbero ID:</label>
+        <InputNumber @bind-Value="cita.BarberoId" />
+    </div>
+    <button type="submit">Guardar</button>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(mensajeError))
+{
+    <div class="alert alert-danger">@mensajeError</div>
+}
+
+@code {
+    private Cita cita = new Cita();
+    private string mensajeError;
+
+    private async Task GuardarCita()
+    {
+        try
+        {
+            await CitaService.GuardarCitaAsync(cita);
+            Console.WriteLine($"Cita guardada: {cita.Titulo} el {cita.Fecha}");
+        }
+        catch (Exception ex)
+        {
+            mensajeError = $"Error al guardar la cita: {ex.Message}";
+        }
+    }
+}
