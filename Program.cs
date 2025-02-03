@@ -1,4 +1,4 @@
-using BlazorApp.Services;
+using BlazorApp.Data.Services;
 using MiBlazorApp.Data;
 using Microsoft.EntityFrameworkCore;
 

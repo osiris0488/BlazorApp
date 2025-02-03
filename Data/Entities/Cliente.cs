@@ -1,4 +1,4 @@
-namespace BlazorApp.Models
+namespace BlazorApp.Data.Entities
 {
 	public class Cliente
 	{

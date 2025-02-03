@@ -1,7 +1,9 @@
+using BlazorApp.Data.Entities;
+
 namespace BlazorApp.Models
 {
-    namespace BlazorApp.Models
-{
+	namespace BlazorApp.Models
+	{
 		public class Barbero
 		{
 			public int BarberoId { get; set; }
